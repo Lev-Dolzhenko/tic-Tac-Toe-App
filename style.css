@@ -1,0 +1,98 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  background-color: rgb(27, 27, 99);
+  color: rgb(216, 156, 45);
+}
+
+.common-block {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 20px;
+}
+
+.buttons {
+  width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+.buttons button {
+  padding: 15px;
+  border: 5px solid rgb(68, 68, 173);
+  border-radius: 10px;
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+.buttons button:hover {
+  background-color: rgb(216, 156, 45);
+}
+
+table {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  border-collapse: collapse;
+}
+
+td {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border: 3px solid rgb(216, 156, 45);
+  padding: 0;
+  cursor: pointer;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: rgb(216, 156, 45);
+}
+
+.result-block {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  row-gap: 10px;
+}
+.result-block button {
+  border: 2px solid rgb(68, 68, 173);
+  border-radius: 10px;
+  padding: 10px;
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+}
+.result-block button:hover {
+  background-color: rgb(216, 156, 45);
+  color: #000;
+}
+
+.none {
+  display: none;
+}
