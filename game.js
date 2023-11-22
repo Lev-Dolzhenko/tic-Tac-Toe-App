@@ -6,78 +6,91 @@ const buttonBot = document.getElementById('bot');
 const buttonFriends = document.getElementById('friends');
 const buttonAgain = document.getElementById('again');
 
-const resultBlock = document.getElementById('result-info'); 
+const resultBlock = document.getElementById('result-info');
 const resultTitle = document.getElementById('result-title');
 
 let identifier = 0;
 let temp = 0;
 
 
-buttonBot.addEventListener('click', function() {
+
+
+buttonBot.addEventListener('click', function () {
     field.classList.remove('none');
     commonBlock.classList.add('none');
+
+    // clearCellClickHandlers()
     bot();
 });
 
-buttonFriends.addEventListener('click', function() {
+buttonFriends.addEventListener('click', function () {
     field.classList.remove('none');
     commonBlock.classList.add('none');
+
+    // clearCellClickHandlers()
     friends()
 })
 
 function bot() {
 
-start(cells);
+    start(cells);
 
-function start(cells) {
-    for (let cell of cells) {
-        cell.addEventListener('click', function step() {
-            if (identifier % 2 === 0) {
-                this.textContent = 'X';
-                this.removeEventListener('click', step);
-                identifier++;
-                temp++;
-                if (victory(cells)) {
-                    console.log('Победил ' + this.textContent);
-                    resultTitle.textContent = 'Победил ' + this.textContent + '-player'
-                } else if (identifier === 9) {
-                    // console.log('Ничья')
+    function start(cells) {
+        
+        for (let cell of cells) {
+            cell.addEventListener('click', function step() {
+                if (identifier % 2 === 0) {
+                    this.textContent = 'X';
+                    this.removeEventListener('click', step);
+                    identifier++;
+                    temp++;
+                    if (victory(cells)) {
+                        console.log('Победил ' + this.textContent);
+                        resultTitle.textContent = 'Won ' + this.textContent
+                        field.classList.add('none');
+                        resultBlock.classList.remove('none');
+                    } else if (identifier === 9) {
+                        // console.log('Ничья')
+                    }
                 }
-            }
-            stepBot();
-        })
-    }
-}
-
-
-function stepBot() {
-    if (identifier % 2 > 0) {
-        let emptyCellIndices = [...cells].reduce((acc, cell, index) => {
-            if (cell.textContent === '') {
-                acc.push(index);
-            }
-            return acc;
-        }, []);
-
-        if (emptyCellIndices.length === 0) {
-            console.log('Ничья');
-            return; // здесь прекращаем выполнение функции stepBot
+                stepBot();
+            })
         }
+        
+    }
 
-        let randomStep = emptyCellIndices[Math.floor(Math.random() * emptyCellIndices.length)];
-        cells[randomStep].textContent = 'O';
-        identifier++;
-        if (victory(cells)) {
-            console.log('Победил ' + cells[randomStep].textContent);
-        } else if (identifier === 9) {
-            console.log('Ничья');
+
+    function stepBot() {
+        
+        if (identifier % 2 > 0) {
+            let emptyCellIndices = [...cells].reduce((acc, cell, index) => {
+                if (cell.textContent === '') {
+                    acc.push(index);
+                }
+                return acc;
+            }, []);
+
+            if (emptyCellIndices.length === 0) {
+                console.log('Ничья');
+                return; // здесь прекращаем выполнение функции stepBot
+            }
+            let randomStep = emptyCellIndices[Math.floor(Math.random() * emptyCellIndices.length)];
+            cells[randomStep].textContent = 'O';
+            identifier++;
+            if (victory(cells)) {
+                console.log('Победил ' + cells[randomStep].textContent);
+                resultTitle.textContent = 'Won ' + cells[randomStep].textContent
+                field.classList.add('none');
+                resultBlock.classList.remove('none');
+            } else if (identifier === 9) {
+                console.log('Ничья');
+            }
         }
     }
-}
 
 }
 
-function friends() { 
+function friends() {
     start(cells)
 
     function start(cells) {
@@ -97,6 +110,7 @@ function friends() {
             })
         }
     }
+    
 }
 
 function victory(cells) {
@@ -118,8 +132,15 @@ function victory(cells) {
     return false;
 }
 
-buttonAgain.addEventListener('click', function() {
+buttonAgain.addEventListener('click', function () {
     resultBlock.classList.add('none');
     commonBlock.classList.remove('none');
     cells.forEach(cell => cell.textContent = '');
 })
+
+function clearCellClickHandlers() {
+    for (let cell of cells) {
+        cell.removeEventListener('click', step);
+    }
+}
+
